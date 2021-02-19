@@ -1,0 +1,58 @@
+---
+title: "vignette"
+author: "Leo Dworkin"
+date: "`r Sys.Date()`" 
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Loading the package
+
+```{r setup}
+library(package)
+```
+
+# years available to peruse
+
+```{r perusable_years}
+year.vec <- c(2013,2014,2015)
+```
+
+# reading in all data for a single year
+
+```{r readin_one, warning=FALSE }
+data_2013 <- fars_read(make_filename(year.vec[1]))
+data_2014 <- fars_read(make_filename(year.vec[2]))
+data_2015 <- fars_read(make_filename(year.vec[3]))
+head(data_2013)
+```
+
+# reading in year and month data for all years
+
+```{r readin_all}
+data <- fars_read_years(year.vec)
+for(year in data) { print(head(year)) }
+```
+
+# summarizing number of accidents per month in each year
+
+```{r summarize_all}
+data <- fars_summarize_years(year.vec)
+head(data)
+```
+
+# visualizing state accident location in a year
+
+```{r visualize_state}
+fars_map_state(1,2015)
+```
